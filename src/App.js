@@ -4,32 +4,35 @@ import Card from './Card';
 import FormNominativo from './FormNominativo';
 import giocatori from './giocatori.json';
 const App = () => {
-  const [nominativi, setNominativi] = useState([]);
-  const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
+  const [giocatori, setGiocatori] = useState([]);
+  const [giocSelezionato, setgiocSelezionato] = useState(null);
 
   // Carica i dati dal server
-  const caricaDati = () => {
+ const caricaDati = () => {
    // fetch('/api/nominativi')
-   fetch('/giocatori.json')
+  fetch('/giocatori.json')
       .then((response) => response.json())
-      .then((data) => setNominativi(data))
+      .then((data) =>{setGiocatori(data.slice(0,20));console.log(data.slice(0,20))} )
+   
       .catch((error) => console.error('Errore nel caricamento dei dati:', error));
   };
 
   useEffect(() => {
     caricaDati();
+    
   }, []);
 
   // Gestisce l'invio del form
   const handleSubmit = (formData) => {
     const nuoviNominativi = formData.id
-      ? nominativi.map((item) => (item.id === formData.id ? formData : item))
-      : [...nominativi, { ...formData, id: Date.now() }];
+      ? giocatori.map((item) => (item.id === formData.id ? formData : item))
+      : [...giocatori, { ...formData, id: Date.now() }];
 
-    setNominativi(nuoviNominativi);
-
+    setGiocatori(nuoviNominativi);
+    console.log("salvo!")
+    console.log(JSON.stringify(nuoviNominativi))
     // Salva i dati sul server
-    fetch('/api/nominativi', {
+    fetch('/api/salva', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -37,28 +40,28 @@ const App = () => {
       body: JSON.stringify(nuoviNominativi),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) =>{console.log(data);console.log(90090)} )
       .catch((error) => console.error('Errore nel salvataggio dei dati:', error));
   };
 
   const handleEdit = (nominativo) => {
-    setNominativoSelezionato(nominativo);
+    setgiocSelezionato(nominativo);
   };
 
   const handleCancel = () => {
-    setNominativoSelezionato(null);
+    setgiocSelezionato(null);
   };
 
   return (
     <div className="app">
       <h1>Gestione Nominativi</h1>
       <FormNominativo
-        nominativoSelezionato={nominativoSelezionato}
+        giocSelezionato={giocSelezionato}
         onSubmit={handleSubmit}
         onCancel={handleCancel}
       />
       <div className="card-container">
-        {nominativi.map((item) => (
+        {giocatori.map((item) => (
           <Card
             key={item.id}
             nome={item.nome}

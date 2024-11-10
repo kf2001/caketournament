@@ -3,7 +3,7 @@ import React from 'react';
 
 const Card = ({ nome, livello,squadra, gender }) => {
   return (
-    <div class="card">
+    <div className="card">
       <h2>{nome}</h2>
       <p>Livello: {livello}</p>
       <p>Gender: {gender}</p>

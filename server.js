@@ -9,7 +9,7 @@ const PORT = 5000;
 app.use(express.json());
 
 // Percorso al file JSON nella cartella public
-const filePath = path.join(__dirname, 'public', 'giocatori.json');
+const filePath = path.join(__dirname, 'public', 'gioca.json');
 
 // Endpoint per ottenere i dati
 app.get('/api/nominativi', (req, res) => {
@@ -17,14 +17,15 @@ app.get('/api/nominativi', (req, res) => {
     if (err) {
       return res.status(500).json({ error: 'Errore nella lettura del file' });
     }
-    res.json(JSON.parse(data));
+    res.json(data);
+    console.log(777)
   });
 });
 
 // Endpoint per salvare i dati
-app.post('/api/nominativi', (req, res) => {
+app.post('/api/salva', (req, res) => {
   const nuoviDati = JSON.stringify(req.body, null, 2);
-
+console.log(888)
   // Scrive i dati nel file data.json
   fs.writeFile(filePath, nuoviDati, 'utf8', (err) => {
     if (err) {
