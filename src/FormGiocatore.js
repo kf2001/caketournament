@@ -1,7 +1,7 @@
-// src/FormNominativo.js
+
 import React, { useState, useEffect } from 'react';
 
-const FormNominativo = ({ nominativoSelezionato, onSubmit, onCancel }) => {
+const FormGiocatore = ({ giocatoreSelezionato, onSubmit, onCancel,onSelect}) => {
   const [formData, setFormData] = useState({
     id: null,
     livello: '',
@@ -11,10 +11,10 @@ const FormNominativo = ({ nominativoSelezionato, onSubmit, onCancel }) => {
 
   // Riempie il form se un nominativo è selezionato per la modifica
   useEffect(() => {
-    if (nominativoSelezionato) {
-      setFormData(nominativoSelezionato);
+    if (giocatoreSelezionato) {
+      setFormData(giocatoreSelezionato);
     }
-  }, [nominativoSelezionato]);
+  }, [giocatoreSelezionato]);
 
   // Gestione dell'input
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ const FormNominativo = ({ nominativoSelezionato, onSubmit, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{formData.id ? 'Modifica Nominativo' : 'Aggiungi Nominativo'}</h2>
+      <h2>{formData.id ? 'Modifica Giocatore' : 'Aggiungi Giocatore'}</h2>
       <div>
         <input
           type="text"
@@ -81,4 +81,4 @@ const FormNominativo = ({ nominativoSelezionato, onSubmit, onCancel }) => {
   );
 };
 
-export default FormNominativo;
+export default FormGiocatore;
