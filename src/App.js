@@ -5,27 +5,25 @@ import FormGiocatore from './FormGiocatore';
 import giocatori from './giocatori';
 
 const App = () => {
-  const [gopcatori, setNominativi] = useState([]);
+  const [gopcatori, setGiocatori] = useState([]);
   const [giocSelezionato, setgiocSelezionato] = useState(null);
 
-  // Carica i dati iniziali
+
   useEffect(() => {
-    const datiIniziali = [
-      { id: 1, nome: 'Mario Rossi', email: 'mario.rossi@example.com', telefono: '1234567890' },
-      { id: 2, nome: 'Luigi Verdi', email: 'luigi.verdi@example.com', telefono: '0987654321' },
-    ];
-    setNominativi(datiIniziali);
+    
+  //  setGiocatori(datiIniziali);
   }, []);
 
   // Gestisce la selezione di una card
   const handleSelect = (id) => {
     const giocatore= giocatori.find((item) => item.id === id);
     setgiocSelezionato(giocatore);
-    console.log('Nominativo selezionato:', giocatore);
+    console.log('Giocatore selezionato:', giocatore);
   };
 
   const handleEdit = (giocatore) => {
     setgiocSelezionato(giocatore);
+    console.log('Giocatore selezionato:', giocatore);
   };
 
   const handleCancel = () => {
@@ -46,8 +44,9 @@ const App = () => {
             key={item.id}
             id={item.id}
             nome={item.nome}
-            email={item.email}
-            telefono={item.telefono}
+            livello={item.livello}
+            gender={item.gender}
+            squadra={item.squadra}
             onSelect={handleSelect}
             onEdit={() => handleEdit(item)}
           />
