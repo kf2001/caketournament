@@ -1,11 +1,12 @@
 // src/App.js
 import React, { useState, useEffect } from 'react';
 import Card from './Card';
-import FormNominativo from './FormNominativo';
+import FormGiocatore from './FormGiocatore';
+import giocatori from './giocatori';
 
 const App = () => {
-  const [nominativi, setNominativi] = useState([]);
-  const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
+  const [gopcatori, setNominativi] = useState([]);
+  const [giocSelezionato, setgiocSelezionato] = useState(null);
 
   // Carica i dati iniziali
   useEffect(() => {
@@ -18,29 +19,29 @@ const App = () => {
 
   // Gestisce la selezione di una card
   const handleSelect = (id) => {
-    const nominativo = nominativi.find((item) => item.id === id);
-    setNominativoSelezionato(nominativo);
-    console.log('Nominativo selezionato:', nominativo);
+    const giocatore= giocatori.find((item) => item.id === id);
+    setgiocSelezionato(giocatore);
+    console.log('Nominativo selezionato:', giocatore);
   };
 
-  const handleEdit = (nominativo) => {
-    setNominativoSelezionato(nominativo);
+  const handleEdit = (giocatore) => {
+    setgiocSelezionato(giocatore);
   };
 
   const handleCancel = () => {
-    setNominativoSelezionato(null);
+    setgiocSelezionato(null);
   };
 
   return (
     <div className="app">
-      <h1>Gestione Nominativi</h1>
-      <FormNominativo
-        nominativoSelezionato={nominativoSelezionato}
+      <h1>Gestione Giocatori</h1>
+      <FormGiocatore
+        giocSelezionato={giocSelezionato}
         onSubmit={(formData) => console.log(formData)}
         onCancel={handleCancel}
       />
       <div className="card-container">
-        {nominativi.map((item) => (
+        {giocatori.map((item) => (
           <Card
             key={item.id}
             id={item.id}
