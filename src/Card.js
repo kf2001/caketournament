@@ -1,7 +1,7 @@
 // src/Card.js
 import React from 'react';
 
-const Card = ({ id, nome, livello, gender, squadra,onSelect, onEdit }) => {
+const Card = ({ id, nome, livello, gender, squadra,onSelect, onChange }) => {
   return (
     <div className="card">
       <h2>{nome}</h2>
@@ -9,7 +9,7 @@ const Card = ({ id, nome, livello, gender, squadra,onSelect, onEdit }) => {
       <p>Gender: {gender}</p>
       <p>Squadra: {squadra}</p>
       <button onClick={() => onSelect(id)}>Seleziona</button>
-      <button onClick={onEdit}>Modifica</button>
+      <button onClick={onChange}>Modifica</button>
     </div>
   );
 };

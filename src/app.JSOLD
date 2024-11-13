@@ -1,0 +1,88 @@
+// src/App.js
+import React, { useState, useEffect } from 'react';
+import Card from './Card';
+import FormGiocatore from './FormGiocatore';
+import giocatori from './giocatori';
+
+const App = () => {
+  const [giocatori, setGiocatori] = useState([]);
+  const [nominativoSelezionato, setNominativoSelezionato] = useState({
+    id: 1,
+    nome: 'Mario Rossi',
+    email: 'mario.rossi@example.com',
+    telefono: '1234567890',
+  });
+
+
+
+  useEffect(() => {
+
+    //  setGiocatori(datiIniziali);
+  }, []);
+  
+  // Gestisce la selezione di una card
+  const handleSelect = (id) => {
+    const giocatore = giocatori.find((item) => item.id === id);
+   
+    console.log('Giocatore selezionato909:', giocatore);
+    console.log('Giocatore selezionatos123:', giocatore);
+
+    {
+      FormData.id = giocatore.id
+      FormData.nome = giocatore.nome
+
+      FormData.livello = giocatore.livello
+
+      FormData.squadra = giocatore.squadra
+      FormData.gender = giocatore.gender
+    }z
+
+    console.log(FormData.id);
+
+  };
+
+  const handleEdit = (giocatore) => {
+
+    console.log('Giocatore selezionatottt:', giocatore);
+  };
+
+  const handleCancel = () => {
+   
+  };
+
+  return (
+    <div className="app">
+      <h1>Gestione Giocatori</h1>
+    
+<FormGiocatore
+nominativo={nominativoSelezionato}
+onUpdate={handleUpdateNominativo}
+
+        onSubmit={(formData) => console.log(formData)}
+        onCancel={handleCancel}
+        
+      />
+      <div className="card-container">
+        {giocatori.map((item) => (
+          <Card
+            key={item.id}
+            id={item.id}
+            nome={item.nome}
+            livello={item.livello}
+            gender={item.gender}
+            squadra={item.squadra}
+            onSelect={handleSelect}
+            onEdit={() => handleEdit(item)}
+          />
+        ))}
+      </div>
+    </div>
+  );
+
+  function Parent() {
+    const data = "Hello from parent";
+const giocatore=giocatore
+
+  };
+}
+  export default App;

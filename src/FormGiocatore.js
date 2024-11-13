@@ -1,25 +1,27 @@
 
 import React, { useState, useEffect } from 'react';
 
-const FormGiocatore = ({ giocatoreSelezionato, onSubmit, onCancel,onSelect}) => {
+const FormGiocatore = ({gioc, onSubmit, onCancel,onChange}) => {
   const [formData, setFormData] = useState({
-    id: null,
-    livello: '',
-    squadra: '',
+    id: '',
+    livello:'',
     gender: '',
   });
 
+ 
+
   // Riempie il form se un nominativo è selezionato per la modifica
   useEffect(() => {
-    if (giocatoreSelezionato) {
-      setFormData(giocatoreSelezionato);
-    }
-  }, [giocatoreSelezionato]);
+   
+     //setFormData(giocatore);
+    
+  }, []);
 
   // Gestione dell'input
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    console.log("33333")
+     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
@@ -32,9 +34,17 @@ const FormGiocatore = ({ giocatoreSelezionato, onSubmit, onCancel,onSelect}) => 
     setFormData({ id: null, nome: '', livello: '', squadra: '' , gender: ''});
   };
 
+  const handleSelect = (e) => {
+    e.preventDefault();
+   console.log(8888)
+    // setFormData({ id: giocatore.id, nome:giocatore.nome , livello: giocatore.livello,
+    //    squadra: giocatore.squadra , gender: giocatore.gender});
+  };
   return (
     <form onSubmit={handleSubmit}>
-      <h2>{formData.id ? 'Modifica Giocatore' : 'Aggiungi Giocatore'}</h2>
+      <h2>{formData.id ? 'Modifica Giocatoreaaa' : 'Aggiungi Giocatoreaaa'}</h2>
+      <h2>{} 
+         frfff</h2>
       <div>
         <input
           type="text"
@@ -50,7 +60,7 @@ const FormGiocatore = ({ giocatoreSelezionato, onSubmit, onCancel,onSelect}) => 
           type="text"
           name="livello"
           placeholder="livello"
-          value={formData.livello}
+          value={gioc.nome}
           onChange={handleChange}
           required
         />
@@ -74,7 +84,10 @@ const FormGiocatore = ({ giocatoreSelezionato, onSubmit, onCancel,onSelect}) => 
           onChange={handleChange}
           required
         />
+
+
       </div>
+      
       <button type="submit">{formData.id ? 'Salva Modifiche' : 'Aggiungi'}</button>
       {formData.id && <button type="button" onClick={onCancel}>Annulla</button>}
     </form>
