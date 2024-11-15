@@ -1,15 +1,12 @@
-// src/Card.js
 import React from 'react';
 
-const Card = ({ id, nome, livello, gender, squadra,onSelect, onChange }) => {
+const Card = ({ nominativo, onSelect }) => {
   return (
-    <div className="card">
-      <h2>{nome}</h2>
-      <p>Livello: {livello}</p>
-      <p>Gender: {gender}</p>
-      <p>Squadra: {squadra}</p>
-      <button onClick={() => onSelect(id)}>Seleziona</button>
-      <button onClick={onChange}>Modifica</button>
+    <div className="card" onClick={onSelect}>
+      <h2>{nominativo.nome}</h2>
+      <p>Email: {nominativo.email}</p>
+      <p>Telefono: {nominativo.telefono}</p>
+      <button>Seleziona</button>
     </div>
   );
 };

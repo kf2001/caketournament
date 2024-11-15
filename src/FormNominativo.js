@@ -1,19 +1,25 @@
-// src/FormNominativo.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const FormNominativo = ({ nominativo, onUpdate }) => {
-  const [formData, setFormData] = useState(nominativo);
+  const [formData, setFormData] = useState({
+    id: '',
+    nome: '',
+    email: '',
+    telefono: '',
+  });
 
-  // Gestisce il cambiamento dei campi del form
+  // Aggiorna il form quando cambia il nominativo selezionato
+  useEffect(() => {
+    if (nominativo) {
+      setFormData(nominativo);
+    }
+  }, [nominativo]);
+
   const handleChange = (e) => {
-   
     const { name, value } = e.target;
-   
     setFormData({ ...formData, [name]: value });
-    console.log(formData)
   };
 
-  // Gestisce l'invio del form
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate(formData);
@@ -21,7 +27,7 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
 
   return (
     <div>
-      <h2>Form Nominativo</h2>
+      <h2>Modifica Nominativo</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label>Nome:</label>
