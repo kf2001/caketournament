@@ -6,7 +6,6 @@ const Card = ({ nominativo, onSelect }) => {
       <h2>{nominativo.nome}</h2>
       <p>Email: {nominativo.email}</p>
       <p>Telefono: {nominativo.telefono}</p>
-      <button>Seleziona</button>
     </div>
   );
 };

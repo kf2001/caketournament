@@ -1,40 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const FormNominativo = ({ nominativo, onUpdate }) => {
-  const [formData, setFormData] = useState({
-    id: '',
-    nome: '',
-    email: '',
-    telefono: '',
-  });
-
-  // Aggiorna il form quando cambia il nominativo selezionato
-  useEffect(() => {
-    if (nominativo) {
-      setFormData(nominativo);
-    }
-  }, [nominativo]);
-
+const FormNominativo = ({ nominativo, onUpdateField }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onUpdate(formData);
+    // Invia l'aggiornamento al componente genitore
+    onUpdateField(nominativo.id, name, value);
   };
 
   return (
     <div>
       <h2>Modifica Nominativo</h2>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
           <label>Nome:</label>
           <input
             type="text"
             name="nome"
-            value={formData.nome}
+            value={nominativo.nome}
             onChange={handleChange}
           />
         </div>
@@ -43,7 +25,7 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
           <input
             type="email"
             name="email"
-            value={formData.email}
+            value={nominativo.email}
             onChange={handleChange}
           />
         </div>
@@ -52,11 +34,10 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
           <input
             type="text"
             name="telefono"
-            value={formData.telefono}
+            value={nominativo.telefono}
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Salva</button>
       </form>
     </div>
   );
