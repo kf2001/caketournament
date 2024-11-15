@@ -1,17 +1,17 @@
 // src/FormNominativo.js
 import React, { useState } from 'react';
 
-const FormNominativo = ({ nominativo, onUpdate }) => {
+const FormNominativo = ({ nominativo, onUpdate,onSelect }) => {
   const [formData, setFormData] = useState(nominativo);
 
   // Gestisce il cambiamento dei campi del form
   const handleChange = (e) => {
-   
     const { name, value } = e.target;
-   
     setFormData({ ...formData, [name]: value });
-    console.log(formData)
   };
+
+  
+
 
   // Gestisce l'invio del form
   const handleSubmit = (e) => {
@@ -22,13 +22,13 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
   return (
     <div>
       <h2>Form Nominativo</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div>
           <label>Nome:</label>
           <input
             type="text"
             name="nome"
-            value={formData.nome}
+            value={formData.nome} 
             onChange={handleChange}
           />
         </div>

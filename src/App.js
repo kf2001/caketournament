@@ -1,8 +1,7 @@
 // src/App.js
 import React, { useState } from 'react';
 import FormNominativo from './FormNominativo';
-import giocatori from './giocatori';
-import Card from './Card';
+
 const App = () => {
   const [nominativoSelezionato, setNominativoSelezionato] = useState({
     id: 1,
@@ -13,6 +12,7 @@ const App = () => {
 
   // Funzione per aggiornare il nominativo
   const handleUpdateNominativo = (nuovoNominativo) => {
+    nuovoNominativo.nome="Alan"
     setNominativoSelezionato(nuovoNominativo);
     console.log('Nominativo aggiornato:', nuovoNominativo);
   };
@@ -24,20 +24,6 @@ const App = () => {
         nominativo={nominativoSelezionato}
         onUpdate={handleUpdateNominativo}
       />
-       <div className="card-container">
-        {giocatori.map((item) => (
-          <Card
-            key={item.id}
-            id={item.id}
-            nome={item.nome}
-            livello={item.livello}
-            gender={item.gender}
-            squadra={item.squadra}
-          //  onSelect={handleSelect}
-          //  onEdit={() => handleEdit(item)}
-          />
-        ))}
-      </div>
     </div>
   );
 };
