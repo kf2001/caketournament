@@ -48,11 +48,11 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
           />
         </div>
         <div>
-          <label>gender:</label>
+          <label>sesso:</label>
           <input
             type="text"
-            name="gender"
-            value={formData.gender}
+            name="sesso"
+            value={formData.sesso}
             onChange={handleChange}
           />
         </div>
@@ -62,6 +62,15 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
             type="number"
             name="squadra"
             value={formData.squadra}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <label>disponibilita:</label>
+          <input
+            type="number"
+            name="disponibilita"
+            value={formData.disponibilita}
             onChange={handleChange}
           />
         </div>

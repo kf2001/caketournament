@@ -64,4 +64,26 @@
 h2 {
   margin-top: 0;
 }
+.grid-container22{
+	display:grid;
 
+  grid-template-columns: repeat(4fr, 1fr,1fr);
+  grid-template-rows: 50px 350px 50px;
+  background-color: yellow;
+}
+
+.gridcell1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  
+
+
+  background-color: green;
+}
+
+.gridcell2 {
+  grid-column-start: 3;
+
+
+  background-color: magenta;
+}

@@ -53,9 +53,9 @@ const App = () => {
   };
 
   return (
-    <div>
+      <div >
       <h1>Gestione Nominativi</h1>
-      <div className="card-container">
+      <div className="card-container" >
         {nominativi.map((item) => (
           <Card
             key={item.id}
@@ -63,13 +63,17 @@ const App = () => {
             onSelect={() => handleSelect(item.id)}
           />
         ))}
-      </div>
-      {/* Passiamo il nominativo selezionato e la funzione di aggiornamento al form */}
-      <FormNominativo
+      </div >
+      <div >
+ <FormNominativo
         nominativo={nominativoSelezionato}
         onUpdate={handleUpdateNominativo}
       />
-    </div>
+
+      </div>
+      {/* Passiamo il nominativo selezionato e la funzione di aggiornamento al form */}
+     
+  </div> 
   );
 };
 
