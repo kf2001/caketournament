@@ -2,19 +2,10 @@ import React, { useState, useEffect } from 'react';
 import FormNominativo from './FormNominativo';
 import Card from './Card';
 import giocatori from "./giocatori"
+import faiSquadre from "./faisquadre"
 
 const App = () => {
-  // Stato per l'array di nominativi
- // const [nominativi, setNominativi] = useState(giocatori
- 
-  /*   { id: 1, nome: 'Mario Rossi', email: 'mario.rossi@example.com', telefono: '1234567890' },
-    { id: 2, nome: 'Luigi Verdi', email: 'luigi.verdi@example.com', telefono: '0987654321' },
-    { id: 3, nome: 'Anna Bianchi', email: 'anna.bianchi@example.com', telefono: '1122334455' }, */
- // );
-
-  // Stato per il nominativo selezionato
- // const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
- // const [nominativi, setNominativi] = useState([]);
+  
   const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
 
   const [nominativi, setNominativi] = useState(giocatori);
@@ -52,9 +43,18 @@ const App = () => {
     setNominativoSelezionato(null); // Resetta il form dopo l'aggiornamento
   };
 
+  
+const Squadre=() => {
+
+    faiSquadre(giocatori, {})
+  };
+
   return (
       <div >
-      <h1>Gestione Nominativi</h1>
+      <h1>Gestione Giocatori</h1>
+    
+      <button onClick={Squadre()}>Squadre</button>
+    
       <div className="card-container" >
         {nominativi.map((item) => (
           <Card

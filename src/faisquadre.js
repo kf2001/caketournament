@@ -1,16 +1,20 @@
 
 
 import 'underscore'
-let _ = require('underscore')
-exports.faiSquadre = function (giocatori_, opzioni_) {
 
-    exports.Pausa = function (ora_, durata_) {
+let _ = require('underscore')
+export default function faiSquadre(giocatori_, opzioni_) {
+  
+    opzioni_ = new Opzioni()
+
+    algo5()
+    function Pausa(ora_, durata_) {
         this.ora = ora_;
         this.durata = durata_;
     };
 
 
-    exports.Giocatore = function () {
+    function Giocatore() {
         this.nome = "xyz"
         this.livello = 5
         this.sesso = "M"
@@ -20,14 +24,14 @@ exports.faiSquadre = function (giocatori_, opzioni_) {
         this.disponibilita = ""
     }
 
-    exports.Opzioni = function () {
+    function Opzioni() {
         this.nomeTorneo = "newTorneo"
         // eslint-disable-next-line no-unused-expressions
-        this.campi = 2,
-            this.ore = 10,
-            this.partite = 20,
-            this.ora_inizio = 9,
-            this.frazione = "00"
+        this.campi = 2
+        this.ore = 10
+        this.partite = 20
+        this.ora_inizio = 9
+        this.frazione = "00"
         // eslint-disable-next-line no-unused-expressions
         this.durata = "45"
         this.pause = [];
@@ -36,20 +40,20 @@ exports.faiSquadre = function (giocatori_, opzioni_) {
         this.nomeSquadraB = "ghibellini"
     }
 
-    exports.formOpzioni = function () {
-        this.nomeTorneo = "newTorneo"
-        // eslint-disable-next-line no-unused-expressions
-        this.campi = 2,
-            this.ore = 10,
-            this.ora_inizio = 9,
-            this.frazione = "00",
-            this.squadre = 2;
-        this.durata = "45"
-        this.nomeSquadraA = "guelfi"
-        this.nomeSquadraB = "ghibellini"
-    }
+    /*  function formOpzioni () {
+         this.nomeTorneo = "newTorneo"
+         // eslint-disable-next-line no-unused-expressions
+         this.campi = 2,
+             this.ore = 10,
+             this.ora_inizio = 9,
+             this.frazione = "00",
+             this.squadre = 2;
+         this.durata = "45"
+         this.nomeSquadraA = "guelfi"
+         this.nomeSquadraB = "ghibellini"
+     } */
 
-    exports.Fisso = function (campo_, ora_, posto_, giocatore_) {
+    function Fisso(campo_, ora_, posto_, giocatore_) {
 
         this.campo = campo_
         this.ora = ora_
@@ -59,7 +63,7 @@ exports.faiSquadre = function (giocatori_, opzioni_) {
 
     }
 
-    exports.Like = function (gioc1, gioc2, like) {
+    function Like(gioc1, gioc2, like) {
 
         this.gioc1 = gioc1
         this.gioc2 = gioc2
@@ -70,68 +74,56 @@ exports.faiSquadre = function (giocatori_, opzioni_) {
 
 
 
-    exports.Soluzione = function () {
+    function Soluzione() {
         this.vettore = []
         this.valutazioni = []
 
     }
+    function algo5() {
+        var sol1
+        var vnew
 
-    var sol1
-    var vnew
+      
+      console.log( _.filter(giocatori_, function (n) { return (n.livello> 5 && n.squadra === 0) }));
 
-    var dummies = []
+        var dummies = []
 
-    var limite = opzioni_.partite * 4
+        var limite = opzioni_.partite * 4
 
-    var partec = giocatori_.slice(0);
+        var partec = giocatori_.slice(0);
 
 
 
-    partec.forEach(function (gi, idx) {
-        gi.squadra = 0;
-        // eslint-disable-next-line no-undef
-        var dummy = new Giocatore();
-        dummy.nome = "dummy" + idx
-        // eslint-disable-next-line no-unused-expressions
-        dummy.livello = 0
+        partec.forEach(function (gi, idx) {
+            gi.squadra = 0;
+            // eslint-disable-next-line no-undef
+            var dummy = new Giocatore();
+            dummy.nome = "dummy" + idx
+            // eslint-disable-next-line no-unused-expressions
+            dummy.livello = 0
             dummy.sesso = "T"
             dummy.junior = false
             dummy.partite = 0
             dummy.squadra = 1
-        dummy.disponibilita = "00000000000000000000000";
-        partec.push(dummy)
+            dummy.disponibilita = "00000000000000000000000";
+            partec.push(dummy)
 
 
 
-    })
+        })
 
 
-    var vmigl = 10000000000
+        var vmigl = 10000000000
 
-    var tenta = 0;
-    let pl = partec.length
-    while (tenta < 1000) {
-
-        let s = Math.floor(Math.random() * (pl / 2))
-        let t = Math.floor(Math.random() * (pl / 2)) + pl / 2
-
-
-        var appo = partec[s]
-        partec[s] = partec[t]
-        partec[t] = appo
-
-        partec[s].squadra = 0
-        partec[t].squadra = 1
+        var tenta = 0;
+        let pl = partec.length
+        
+        while (tenta < 1000) {
+           
+            let s = Math.floor(Math.random() * (pl / 2))
+            let t = Math.floor(Math.random() * (pl / 2)) + pl / 2
 
 
-        vnew = valutaSquadre_alt(partec.slice(0))
-
-
-        if (vnew < vmigl) {
-            tenta = 0;
-
-            vmigl = vnew
-        } else {
             var appo = partec[s]
             partec[s] = partec[t]
             partec[t] = appo
@@ -139,22 +131,41 @@ exports.faiSquadre = function (giocatori_, opzioni_) {
             partec[s].squadra = 0
             partec[t].squadra = 1
 
-            tenta++
+
+            vnew = valutaSquadre_alt(partec.slice(0))
+
+          
+            if (vnew < vmigl) {
+                tenta = 0;
+
+                vmigl = vnew
+                console.log(vmigl)
+            } else {
+                var appo = partec[s]
+                partec[s] = partec[t]
+                partec[t] = appo
+
+                partec[s].squadra = 0
+                partec[t].squadra = 1
+
+                tenta++
+
+            }
+
 
         }
 
+
+
+
+        // eslint-disable-next-line eqeqeq
+        var pA = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 0) })
+        // eslint-disable-next-line eqeqeq
+        var pB = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 1) })
+
+    
+        return (_.union(pA, pB))
     }
-
-
-
-
-    // eslint-disable-next-line eqeqeq
-    var pA = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 0) })
-    // eslint-disable-next-line eqeqeq
-    var pB = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 1) })
-
-
-    return (_.union(pA, pB))
 }
 
 
@@ -163,7 +174,7 @@ function valutaSquadre_alt(partec, commento) {
 
     var partiteA = _.reduce(_.where(partec, { "squadra": 0 }), function (somma, g) { return somma + g.partite; }, 0)
     var partiteB = _.reduce(_.where(partec, { "squadra": 1 }), function (somma, g) { return somma + g.partite; }, 0)
-
+   
     var maschiA = _.reduce(_.where(partec, { "squadra": 0, "sesso": "M" }), function (somma, g) { return somma + 1; }, 0)
     var maschiB = _.reduce(_.where(partec, { "squadra": 1, "sesso": "M" }), function (somma, g) { return somma + 1; }, 0)
 
@@ -220,6 +231,7 @@ function valutaSquadre_alt(partec, commento) {
     forzaDistribBM[2] = forzaCalcBM[8] + forzaCalcBM[9] + forzaCalcBM[10]
     forzaDistribBF[2] = forzaCalcBF[8] + forzaCalcBF[9] + forzaCalcBF[10]
 
+    //console.log(  forzaCalcAM)
 
 
     var ca = 2
@@ -258,7 +270,7 @@ function valutaSquadre_alt(partec, commento) {
     vpar += cf * (femmA_medi - femmB_medi) * (femmA_medi - femmB_medi)
     vpar += cf * (femmA_forti - femmB_forti) * (femmA_forti - femmB_forti)
 
-
+    ///console.log(maschiA_scarsi,maschiB_scarsi)
     //  if (commento) return ({ maschiA: forzaCalcAM.slice(0), femmineA: forzaCalcAF.slice(0), maschiB: forzaCalcBM.slice(0), femmineB: forzaCalcBF.slice(0) })
     if (commento) return ({ maschiA: forzaDistribAM.slice(0), femmineA: forzaDistribAF.slice(0), maschiB: forzaDistribBM.slice(0), femmineB: forzaDistribBF.slice(0) })
 
@@ -271,4 +283,4 @@ function valutaSquadre_alt(partec, commento) {
 
 }
 
-exports.valutaSquadre_alt = valutaSquadre_alt;
+//.valutaSquadre_alt = valutaSquadre_alt;
