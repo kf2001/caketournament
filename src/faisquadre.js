@@ -4,7 +4,7 @@ import 'underscore'
 
 let _ = require('underscore')
 export default function faiSquadre(giocatori_, opzioni_) {
-  
+
     opzioni_ = new Opzioni()
 
     algo5()
@@ -79,37 +79,38 @@ export default function faiSquadre(giocatori_, opzioni_) {
         this.valutazioni = []
 
     }
+
+
     function algo5() {
         var sol1
         var vnew
 
-      
-      console.log( _.filter(giocatori_, function (n) { return (n.livello> 5 && n.squadra === 0) }));
+
+        //  console.log(_.filter(giocatori_, function (n) { return (n.livello > 8) }));
 
         var dummies = []
 
         var limite = opzioni_.partite * 4
 
+
         var partec = giocatori_.slice(0);
 
 
-
         partec.forEach(function (gi, idx) {
-            gi.squadra = 0;
+            gi.partite = 3
+            gi.squadra = Math.floor(Math.floor(Math.random(2)));
             // eslint-disable-next-line no-undef
-            var dummy = new Giocatore();
+          /*   var dummy = new Giocatore();
             dummy.nome = "dummy" + idx
             // eslint-disable-next-line no-unused-expressions
             dummy.livello = 0
             dummy.sesso = "T"
             dummy.junior = false
-            dummy.partite = 0
-            dummy.squadra = 1
+            dummy.partite = 2
+            dummy.squadra = Math.floor(Math.floor(Math.random(2)));
             dummy.disponibilita = "00000000000000000000000";
             partec.push(dummy)
-
-
-
+ */
         })
 
 
@@ -117,9 +118,13 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
         var tenta = 0;
         let pl = partec.length
-        
-        while (tenta < 1000) {
-           
+
+        while (tenta < 100) {
+
+            tenta++
+            console.log(tenta, "tenta")
+            // console.log(vnew, 122)
+
             let s = Math.floor(Math.random() * (pl / 2))
             let t = Math.floor(Math.random() * (pl / 2)) + pl / 2
 
@@ -134,13 +139,14 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
             vnew = valutaSquadre_alt(partec.slice(0))
 
-          
+            console.log(vnew, "vnew", vmigl)
             if (vnew < vmigl) {
                 tenta = 0;
-
+                console.log("quaaaaa")
                 vmigl = vnew
-                console.log(vmigl)
+
             } else {
+                console.log("quiiiiii")
                 var appo = partec[s]
                 partec[s] = partec[t]
                 partec[t] = appo
@@ -152,32 +158,39 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
             }
 
+            console.log("tentaaa",tenta)
+
+            var pA = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 0) })
+            // eslint-disable-next-line eqeqeq
+            var pB = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 1) })
+
+
+
 
         }
-
-
-
-
         // eslint-disable-next-line eqeqeq
-        var pA = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 0) })
-        // eslint-disable-next-line eqeqeq
-        var pB = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 1) })
 
-    
+
+        console.log("risultato",_.union(pA, pB))
+        console.log("migliore",vmigl)
+
         return (_.union(pA, pB))
     }
 }
 
 
 
+
 function valutaSquadre_alt(partec, commento) {
 
-    var partiteA = _.reduce(_.where(partec, { "squadra": 0 }), function (somma, g) { return somma + g.partite; }, 0)
-    var partiteB = _.reduce(_.where(partec, { "squadra": 1 }), function (somma, g) { return somma + g.partite; }, 0)
-   
+
+    var partiteA = _.reduce(_.where(partec, { "squadra": 1 }), function (somma, g) { return somma + g.partite; }, 0)
+    var partiteB = _.reduce(_.where(partec, { "squadra": 0 }), function (somma, g) { return somma + g.partite; }, 0)
+    console.log(partiteA, partiteB)
+
     var maschiA = _.reduce(_.where(partec, { "squadra": 0, "sesso": "M" }), function (somma, g) { return somma + 1; }, 0)
     var maschiB = _.reduce(_.where(partec, { "squadra": 1, "sesso": "M" }), function (somma, g) { return somma + 1; }, 0)
-
+    console.log(maschiA, maschiB, 222)
     var femmA = _.reduce(_.where(partec, { "squadra": 0, "sesso": "F" }), function (somma, g) { return somma + 1; }, 0)
     var femmB = _.reduce(_.where(partec, { "squadra": 1, "sesso": "F" }), function (somma, g) { return somma + 1; }, 0)
 
@@ -283,4 +296,11 @@ function valutaSquadre_alt(partec, commento) {
 
 }
 
-//.valutaSquadre_alt = valutaSquadre_alt;
+function mostrasquadre(squadraA,squadraB){
+
+
+
+
+
+
+}

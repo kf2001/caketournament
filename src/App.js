@@ -3,32 +3,20 @@ import FormNominativo from './FormNominativo';
 import Card from './Card';
 import giocatori from "./giocatori"
 import faiSquadre from "./faisquadre"
+import Mostrasquadra from "./Mostrasquadra"
+
+
+
+import 'underscore'
+
+let _ = require('underscore')
 
 const App = () => {
   
   const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
 
   const [nominativi, setNominativi] = useState(giocatori);
- /*  useEffect(() => {
-    const datiSalvati = localStorage.getItem('nominativ2');
-    if (datiSalvati) {
-      giocatori.slice(0,18)
-     // setNominativi(JSON.parse(datiSalvati).slice(0,18));
-    } else {
-
-      
-      // Dati iniziali se non ci sono dati salvati
-      setNominativi(
-        giocatori.slice(0,18)
-      );
-    }
-  }, []);
- */
-/*   useEffect(() => {
-    localStorage.setItem('nominativ2', JSON.stringify(nominativi.slice(0,18)));
-  }, [nominativi]);
- */
-  // Funzione per gestire la selezione di una card
+ 
   const handleSelect = (id) => {
     const nominativo = nominativi.find((item) => item.id === id);
     setNominativoSelezionato(nominativo);
@@ -47,6 +35,7 @@ const App = () => {
 const Squadre=() => {
 
     faiSquadre(giocatori, {})
+   
   };
 
   return (
@@ -70,10 +59,17 @@ const Squadre=() => {
         onUpdate={handleUpdateNominativo}
       />
 
-      </div>
-      {/* Passiamo il nominativo selezionato e la funzione di aggiornamento al form */}
      
-  </div> 
+     
+      <Mostrasquadra
+      giocatori={
+      //  giocatori
+ giocatori.filter((gg) => gg.sesso==='F')
+      }
+          
+          />
+  </div>  </div>
+  
   );
 };
 
