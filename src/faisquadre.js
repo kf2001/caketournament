@@ -82,6 +82,7 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
 
     function algo5() {
+     
         var sol1
         var vnew
 

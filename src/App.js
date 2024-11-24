@@ -20,6 +20,7 @@ const App = () => {
   const handleSelect = (id) => {
     const nominativo = nominativi.find((item) => item.id === id);
     setNominativoSelezionato(nominativo);
+    console.log(54)
   };
 
   // Funzione per aggiornare il nominativo
@@ -33,7 +34,7 @@ const App = () => {
 
 
   const Squadre = () => {
-
+    
     faiSquadre(giocatori, {})
 
   };
@@ -45,7 +46,7 @@ const App = () => {
 
       <div className="grid-item" >  <h1>Gestione Giocatori</h1>
 <div className="card-container">
-        <button onClick={Squadre()}>Squadre</button>
+        <button onDoubleClick={Squadre()}>Squadre</button>
         {nominativi.map((item) => (
           <Card
             key={item.id}
