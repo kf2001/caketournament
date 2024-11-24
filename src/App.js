@@ -39,12 +39,13 @@ const App = () => {
   };
 
   return (
-    <div className="grid_container">
-      <h1>Gestione Giocatori</h1>
+    <div className="grid-container">
 
-      <button onClick={Squadre()}>Squadre</button>
 
-      <div className="gridcell1-1" >
+
+      <div className="grid-item" >  <h1>Gestione Giocatori</h1>
+<div className="card-container">
+        <button onClick={Squadre()}>Squadre</button>
         {nominativi.map((item) => (
           <Card
             key={item.id}
@@ -52,15 +53,16 @@ const App = () => {
             onSelect={() => handleSelect(item.id)}
           />
         ))}
-      </div >
-      <div className="gridcell2-1">
+      </div ></div>
+      <div className="grid-item">
         <FormNominativo
           nominativo={nominativoSelezionato}
           onUpdate={handleUpdateNominativo}
         />
+      </div>
 
-<div className="gridcell3-1">
-
+      <div className="grid-item">
+<div className="listagioc">
         <Mostrasquadra
           giocatori={
             //  giocatori
@@ -68,18 +70,19 @@ const App = () => {
           }
 
         />
-</div>
 
-<div></div>
-<div className="gridcell3-2">
-<Mostrasquadra
+      </div>
+      </div>
+      <div className="grid-item">
+      <div className="listagioc">
+        <Mostrasquadra
           giocatori={
             //  giocatori
             giocatori.filter((gg) => gg.squadra === 1)
           }
 
         />
-      </div> </div> </div>
+      </div> </div></div>
 
   );
 };
