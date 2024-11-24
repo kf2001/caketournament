@@ -12,11 +12,11 @@ import 'underscore'
 let _ = require('underscore')
 
 const App = () => {
-  
+
   const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
 
   const [nominativi, setNominativi] = useState(giocatori);
- 
+
   const handleSelect = (id) => {
     const nominativo = nominativi.find((item) => item.id === id);
     setNominativoSelezionato(nominativo);
@@ -31,20 +31,20 @@ const App = () => {
     setNominativoSelezionato(null); // Resetta il form dopo l'aggiornamento
   };
 
-  
-const Squadre=() => {
+
+  const Squadre = () => {
 
     faiSquadre(giocatori, {})
-   
+
   };
 
   return (
-      <div >
+    <div className="grid_container">
       <h1>Gestione Giocatori</h1>
-    
+
       <button onClick={Squadre()}>Squadre</button>
-    
-      <div className="card-container" >
+
+      <div className="gridcell1-1" >
         {nominativi.map((item) => (
           <Card
             key={item.id}
@@ -53,24 +53,36 @@ const Squadre=() => {
           />
         ))}
       </div >
-      <div >
- <FormNominativo
-        nominativo={nominativoSelezionato}
-        onUpdate={handleUpdateNominativo}
-      />
+      <div className="gridcell2-1">
+        <FormNominativo
+          nominativo={nominativoSelezionato}
+          onUpdate={handleUpdateNominativo}
+        />
 
-     
-     
-      <Mostrasquadra
-      giocatori={
-      //  giocatori
- giocatori.filter((gg) => gg.sesso==='F')
-      }
-          
-          />
-  </div>  </div>
-  
+<div className="gridcell3-1">
+
+        <Mostrasquadra
+          giocatori={
+            //  giocatori
+            giocatori.filter((gg) => gg.squadra === 0)
+          }
+
+        />
+</div>
+
+<div></div>
+<div className="gridcell3-2">
+<Mostrasquadra
+          giocatori={
+            //  giocatori
+            giocatori.filter((gg) => gg.squadra === 1)
+          }
+
+        />
+      </div> </div> </div>
+
   );
 };
+
 
 export default App;

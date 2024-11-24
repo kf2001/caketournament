@@ -1,12 +1,13 @@
 import React from 'react';
 
-import Card from './Card';
 
-const Mostrasquadra = ({ giocatori }) => {
+import ListaNomi from './ListaNomi';
+
+const Mostrasquadra = ({ giocatori ,squadra}) => {
   return (
     <div >
       {giocatori.map((dato) => (
-        <Card key={dato.id} nominativo={dato} />
+        <ListaNomi key={dato.id} nominativo={dato} squadra={squadra}/>
       ))}
     </div>
   );
