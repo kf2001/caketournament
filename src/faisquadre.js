@@ -5,9 +5,12 @@ import 'underscore'
 let _ = require('underscore')
 export default function faiSquadre(giocatori_, opzioni_) {
 
-    opzioni_ = new Opzioni()
 
-    algo5()
+
+
+    opzioni_ = new Opzioni();
+
+   let migliore =algo5();
     function Pausa(ora_, durata_) {
         this.ora = ora_;
         this.durata = durata_;
@@ -86,7 +89,7 @@ export default function faiSquadre(giocatori_, opzioni_) {
         var sol1
         var vnew
 
-
+//
         //  console.log(_.filter(giocatori_, function (n) { return (n.livello > 8) }));
 
         var dummies = []
@@ -140,14 +143,14 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
             vnew = valutaSquadre_alt(partec.slice(0))
 
-            console.log(vnew, "vnew", vmigl)
+           
             if (vnew < vmigl) {
                 tenta = 0;
-                console.log("quaaaaa")
+               
                 vmigl = vnew
 
             } else {
-                console.log("quiiiiii")
+               
                 var appo = partec[s]
                 partec[s] = partec[t]
                 partec[t] = appo
@@ -159,8 +162,7 @@ export default function faiSquadre(giocatori_, opzioni_) {
 
             }
 
-            console.log("tentaaa",tenta)
-
+          
             var pA = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 0) })
             // eslint-disable-next-line eqeqeq
             var pB = _.filter(partec, function (n) { return (n.partite > 0 && n.squadra == 1) })
@@ -172,11 +174,12 @@ export default function faiSquadre(giocatori_, opzioni_) {
         // eslint-disable-next-line eqeqeq
 
 
-        console.log("risultato",_.union(pA, pB))
-        console.log("migliore",vmigl)
-
-        return (_.union(pA, pB))
+       
+return (vnew)
+      //  return (_.union(pA, pB))
     }
+
+    return (migliore)
 }
 
 

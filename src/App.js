@@ -13,6 +13,25 @@ let _ = require('underscore')
 
 const App = () => {
 
+
+  
+var [migliore, setMigliore] = useState(0);
+
+  const [count, setCount] = useState(0);
+
+  const increment = () => {
+  setCount(count + 1);
+   // if (count >= 1) faiSquadre(giocatori, {})
+  
+  };
+  const handleClick = () => {
+    // eslint-disable-next-line no-const-assign
+    setMigliore(faiSquadre(giocatori, {}))
+   
+   // setMigliore(faiSquadre(giocatori, {}));
+   };
+ 
+
   const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
 
   const [nominativi, setNominativi] = useState(giocatori);
@@ -20,7 +39,7 @@ const App = () => {
   const handleSelect = (id) => {
     const nominativo = nominativi.find((item) => item.id === id);
     setNominativoSelezionato(nominativo);
-    console.log(54)
+  
   };
 
   // Funzione per aggiornare il nominativo
@@ -34,56 +53,67 @@ const App = () => {
 
 
   const Squadre = () => {
-    
-    faiSquadre(giocatori, {})
+
+    // faiSquadre(giocatori, {})
 
   };
 
   return (
+
+
     <div className="grid-container">
+<div>
+<h1>Clicca sul pulsante</h1>
+      <button onClick={handleClick}>Cliccami</button>
+    </div>
 
-
+      <div>
+        <span>{migliore}</span>
+        
+        <button onClick={increment}>Fai Squadre</button>
+      </div>
 
       <div className="grid-item" >  <h1>Gestione Giocatori</h1>
-<div className="card-container">
-        <button onDoubleClick={Squadre()}>Squadre</button>
-        {nominativi.map((item) => (
-          <Card
-            key={item.id}
-            nominativo={item}
-            onSelect={() => handleSelect(item.id)}
-          />
-        ))}
-      </div ></div>
+        <div className="card-container">
+          {/* <button onDoubleClick={Squadre()}>Squadre</button> */}
+          {nominativi.map((item) => (
+            <Card
+              key={item.id}
+              nominativo={item}
+              onSelect={() => handleSelect(item.id)}
+            />
+          ))}
+        </div ></div>
       <div className="grid-item">
         <FormNominativo
           nominativo={nominativoSelezionato}
+          partecipanti={giocatori}
           onUpdate={handleUpdateNominativo}
         />
       </div>
 
       <div className="grid-item">
-<div className="listagioc">
-        <Mostrasquadra
-          giocatori={
-            //  giocatori
-            giocatori.filter((gg) => gg.squadra === 0)
-          }
+        <div className="listagioc">
+          <Mostrasquadra
+            giocatori={
+              //  giocatori
+              giocatori.filter((gg) => gg.squadra === 0)
+            }
 
-        />
+          />
 
-      </div>
+        </div>
       </div>
       <div className="grid-item">
-      <div className="listagioc">
-        <Mostrasquadra
-          giocatori={
-            //  giocatori
-            giocatori.filter((gg) => gg.squadra === 1)
-          }
+        <div className="listagioc">
+          <Mostrasquadra
+            giocatori={
+              //  giocatori
+              giocatori.filter((gg) => gg.squadra === 1)
+            }
 
-        />
-      </div> </div></div>
+          />
+        </div> </div></div>
 
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { forEach } from 'underscore';
 
-const FormNominativo = ({ nominativo, onUpdate }) => {
+const FormNominativo = ({ nominativo, partecipanti,onUpdate }) => {
   const [formData, setFormData] = useState({
     id: '',
     nome: '',
@@ -23,6 +24,11 @@ const FormNominativo = ({ nominativo, onUpdate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate(formData);
+   let damodificare= partecipanti.findIndex(x => x.id === formData.id);
+   partecipanti.splice(damodificare,1)
+
+partecipanti.push(formData)
+console.log(partecipanti)
   };
 
   return (
