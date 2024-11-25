@@ -9,6 +9,7 @@ import Mostrasquadra from "./Mostrasquadra"
 
 import 'underscore'
 
+
 let _ = require('underscore')
 
 const App = () => {
@@ -30,7 +31,20 @@ var [migliore, setMigliore] = useState(0);
    
    // setMigliore(faiSquadre(giocatori, {}));
    };
- 
+   useEffect(() => {
+    const datiSalvati = localStorage.getItem('dati');
+    if (datiSalvati) {
+      setNominativi(JSON.parse(datiSalvati));
+     
+    
+    } else {
+      // Dati iniziali se non ci sono dati salvati
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+       setNominativi(giocatori);
+
+    
+    }
+  }, []);
 
   const [nominativoSelezionato, setNominativoSelezionato] = useState(null);
 

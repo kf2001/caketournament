@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { forEach } from 'underscore';
 
-const FormNominativo = ({ nominativo, partecipanti,onUpdate }) => {
+const FormNominativo = ({ nominativo, partecipanti, onUpdate }) => {
   const [formData, setFormData] = useState({
     id: '',
     nome: '',
@@ -24,11 +24,15 @@ const FormNominativo = ({ nominativo, partecipanti,onUpdate }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onUpdate(formData);
-   let damodificare= partecipanti.findIndex(x => x.id === formData.id);
-   partecipanti.splice(damodificare,1)
+    let damodificare = partecipanti.findIndex(x => x.id === formData.id);
+    partecipanti.splice(damodificare, 1)
 
-partecipanti.push(formData)
-console.log(partecipanti)
+    partecipanti.push(formData)
+    partecipanti = partecipanti.sort((a, b) =>  a.nome.localeCompare(b.nome));
+    console.log(partecipanti)
+    localStorage["dati"] = JSON.stringify(partecipanti);
+
+
   };
 
   return (
@@ -80,7 +84,7 @@ console.log(partecipanti)
             onChange={handleChange}
           />
         </div>
-       
+
         <button type="submit">Salva</button>
       </form>
     </div>
