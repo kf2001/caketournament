@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mappa di Voronoi - Colori Diversi</title>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <style>
+    canvas {
+      border: 1px solid black;
+      display: block;
+      margin: 20px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="voronoiCanvas" width="800" height="800"></canvas>
+
+  <script>
+    const canvas = document.getElementById("voronoiCanvas");
+    const ctx = canvas.getContext("2d");
+
+    const width = canvas.width;
+    const height = canvas.height;
+
+    // Genera punti casuali
+    const points = Array.from({ length: 50 }, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+    }));
+
+    // Colori per la colorazione (minimo 4 per garantire diversità)
+    const colors = ["#FF5733", "#33FF57", "#5733FF", "#FFD700"];
+
+    // Usa d3-voronoi per generare celle
+    const voronoi = d3.voronoi()
+      .extent([[0, 0], [width, height]])
+      .x(d => d.x)
+      .y(d => d.y);
+
+    const diagram = voronoi(points);
+    const polygons = diagram.polygons();
+
+    // Array per tracciare il colore assegnato a ciascuna cella
+    const cellColors = Array(points.length).fill(null);
+
+    // Disegna la mappa di Voronoi
+    polygons.forEach((polygon, i) => {
+      const color = assignColor(i);
+
+      ctx.beginPath();
+      ctx.moveTo(polygon[0][0], polygon[0][1]);
+      for (let j = 1; j < polygon.length; j++) {
+        ctx.lineTo(polygon[j][0], polygon[j][1]);
+      }
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+
+      // Disegna i punti centrali
+      const point = points[i];
+      ctx.beginPath();
+      ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = "black";
+      ctx.fill();
+    });
+
+    function assignColor(index) {
+      // Trova celle adiacenti
+      const neighbors = diagram.cells[index].halfedges
+        .map(edgeIndex => {
+          const edge = diagram.edges[edgeIndex];
+          return edge.left === index ? edge.right : edge.left;
+        })
+        .filter(neighbor => neighbor !== -1);
+
+      // Colori già usati dai vicini
+      const usedColors = new Set(neighbors.map(n => cellColors[n]));
+
+      // Trova un colore disponibile
+      for (const color of colors) {
+        if (!usedColors.has(color)) {
+          cellColors[index] = color;
+          return color;
+        }
+      }
+
+      // Default (non dovrebbe mai accadere con abbastanza colori)
+      return colors[0];
+    }
+  </script>
+</body>
+</html>
