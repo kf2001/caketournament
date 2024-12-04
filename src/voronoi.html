@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +14,12 @@
     }
   </style>
 </head>
+
 <body>
   <canvas id="voronoiCanvas" width="800" height="800"></canvas>
 
   <script>
+
     const canvas = document.getElementById("voronoiCanvas");
     const ctx = canvas.getContext("2d");
 
@@ -24,7 +27,7 @@
     const height = canvas.height;
 
     // Genera punti casuali
-    const points = Array.from({ length: 50 }, () => ({
+    const points = Array.from({ length: 10 }, () => ({
       x: Math.random() * width,
       y: Math.random() * height,
     }));
@@ -76,11 +79,12 @@
 
       // Colori già usati dai vicini
       const usedColors = new Set(neighbors.map(n => cellColors[n]));
-
+      // console.log (usedColors)
       // Trova un colore disponibile
       for (const color of colors) {
         if (!usedColors.has(color)) {
           cellColors[index] = color;
+          // console.log (222,cellColors)
           return color;
         }
       }
@@ -88,6 +92,83 @@
       // Default (non dovrebbe mai accadere con abbastanza colori)
       return colors[0];
     }
+
+    function assignColor2(index) {
+      // Trova celle adiacenti
+      const neighbors = diagram.cells[index].halfedges
+        .map(edgeIndex => {
+          const edge = diagram.edges[edgeIndex];
+          return edge.left === index ? edge.right : edge.left;
+        })
+        .filter(neighbor => neighbor !== -1);
+
+      // Colori già usati dai vicini
+      const usedColors = new Set(neighbors.map(n => cellColors[n]));
+      console.log(usedColors)
+      // Trova un colore disponibile
+      for (const color of colors) {
+        if (!usedColors.has(color)) {
+          cellColors[index] = color;
+
+          return color;
+        }
+      }
+
+      // Default (non dovrebbe mai accadere con abbastanza colori)
+      return colors[0];
+    }
+    function getAdjacentCells(index, diagram) {
+      // Trova i bordi (halfedges) della cella corrente
+      const halfedges = diagram.cells[index].halfedges;
+
+      // Trova le celle adiacenti usando i bordi
+      const adjacentCells = halfedges
+        .map(edgeIndex => {
+          const edge = diagram.edges[edgeIndex];
+          // Determina quale delle due celle è la vicina
+          return edge.left === index ? edge.right : edge.left;
+        })
+        .filter(neighbor => neighbor !== -1); // Escludi bordi che non hanno vicini validi
+
+      return adjacentCells;
+    }
+
+    //diagram.cells.forEach(ind){
+
+    let vicini = []
+    points.forEach((element, idx) => {
+      vicini = (getAdjacentCells(idx, diagram));
+
+      let setSenzaDuplicati = new Set(vicini);
+      [...setSenzaDuplicati].shift()
+      let solovicini = [...setSenzaDuplicati]
+      let str = JSON.stringify(solovicini)
+      // Conversione del Set in un array senza duplicati
+      //vicini.push( JSON.stringify( [...setSenzaDuplicati]));
+      console.log("--------------")
+      console.log(element.x)
+      console.log(idx)
+      console.log(str)
+
+    });
+
+
+    function trovapunto(x, y) {
+
+      let trovato = null
+
+
+      points.forEach((element) => {
+        if ((element.x - x < 0.001) && (element.y - y < 0.001)) trovato = element
+
+      
+  })
+
+return(trovato)
+
+}
   </script>
 </body>
+
+
 </html>
