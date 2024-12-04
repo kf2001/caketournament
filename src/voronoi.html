@@ -137,36 +137,46 @@
 
     let vicini = []
     points.forEach((element, idx) => {
-      vicini = (getAdjacentCells(idx, diagram));
+    //  console.log(trovapunto(element), "---mestesso----")
 
+      vicini = (getAdjacentCells(idx, diagram));
+ 
       let setSenzaDuplicati = new Set(vicini);
-      [...setSenzaDuplicati].shift()
+     // [...setSenzaDuplicati].shift()
       let solovicini = [...setSenzaDuplicati]
       let str = JSON.stringify(solovicini)
       // Conversione del Set in un array senza duplicati
       //vicini.push( JSON.stringify( [...setSenzaDuplicati]));
-      console.log("--------------")
-      console.log(element.x)
+      console.log("------puntoooo----")
+      console.log(element.x,element.y)
       console.log(idx)
       console.log(str)
+      console.log("---vic----")
+      console.log("numero vicini",vicini.length)
+     // solovicini.forEach((vic)=>console.log("numero vicini",vic.length))
+      console.log("elenco-vicini-")
+
+      console.log(vicini)
+      console.log(trovapunto( "---punto nr----",solovicini[0]), "---vicool----")
+      console.log("----fine--puntoooo----")
 
     });
 
 
-    function trovapunto(x, y) {
+    function trovapunto(pto) {
 
       let trovato = null
+      console.log(pto[0], pto[1], 8888)
+
+      points.forEach((element, idx) => {
+        if ((Math.abs(element.x - pto[0] < 0.001)) && (Math.abs((element.y - pto[1]) < 0.001))) trovato = idx
 
 
-      points.forEach((element) => {
-        if ((element.x - x < 0.001) && (element.y - y < 0.001)) trovato = element
+      })
 
-      
-  })
+      return (trovato)
 
-return(trovato)
-
-}
+    }
   </script>
 </body>
 
